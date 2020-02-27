@@ -37,6 +37,7 @@ build() {
         -DUSE_SYSTEM_POPPLER=FALSE \
         -DUSE_SYSTEM_POPPLER_QT5=FALSE \
         -DUSE_SYSTEM_ZZIP=FALSE \
+        -DWITH_MAN_PAGES=FALSE \
         -DWITH_UI_QT=FALSE
     make
 }
