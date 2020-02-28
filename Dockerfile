@@ -8,10 +8,9 @@ RUN    apk update \
     && adduser -G abuild -g "Alpine Package Builder" -s /bin/ash -D builder \
     && echo "builder ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
-COPY APKBUILD /home/builder/
-
 USER builder
-RUN    cd /home/builder \
+COPY miktex /home/builder/miktex
+RUN    cd /home/builder/miktex \
     && abuild-keygen -a -i -n \
     && abuild -r
 
@@ -21,7 +20,7 @@ LABEL Description="Dockerized MiKTeX, Alpine Linux latest" \
       Vendor="Christian Schenk" \
       Version="2.9.7300"
 
-COPY --from=builder /home/build/packages/builder/x86_64/miktex-*.apk .
+COPY --from=builder /home/builder/packages/miktex/x86_64/miktex-*.apk .
 
 RUN    apk update \
     && apk add --no-cache \
