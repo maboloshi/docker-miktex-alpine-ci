@@ -21,7 +21,7 @@ LABEL Description="Dockerized MiKTeX, Alpine Linux latest" \
       Vendor="Christian Schenk" \
       Version="2.9.7300"
 
-COPY --from=builder /home/builder/miktex*.apk .
+COPY --from=builder /home/build/packages/builder/x86_64/miktex-*.apk .
 
 RUN    apk update \
     && apk add --no-cache \
@@ -32,8 +32,8 @@ RUN    apk update \
            make \
            perl \
            curl \
-    && apk add --no-cache --allow-untrusted miktex*.apk \
-    && rm -rf miktex*.apk \
+    && apk add --no-cache --allow-untrusted miktex-*.apk \
+    && rm -rf miktex-*.apk \
     && addgroup miktex \
     && adduser -s /bin/bash -D miktex
 
@@ -51,4 +51,4 @@ RUN    miktexsetup finish \
 #    MIKTEX_USERDATA=/home/miktex/.miktex/texmfs/data \
 #    MIKTEX_USERINSTALL=/home/miktex/.miktex/texmfs/install
 
-CMD ["bash"]
+ENTRYPOINT ["bash"]
