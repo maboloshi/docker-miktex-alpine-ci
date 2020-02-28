@@ -10,7 +10,8 @@ RUN    apk update \
 
 USER builder
 COPY miktex /home/builder/miktex
-RUN    cd /home/builder/miktex \
+RUN    sudo chown builder:abuild -R /home/builder/miktex \
+    && cd /home/builder/miktex \
     && abuild-keygen -a -i -n \
     && abuild -r
 
