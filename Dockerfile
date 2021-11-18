@@ -5,6 +5,7 @@ RUN    apk update \
            alpine-sdk \
            coreutils \
            cmake \
+           tree \
     && adduser -G abuild -g "Alpine Package Builder" -s /bin/ash -D builder \
     && echo "builder ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
@@ -13,7 +14,8 @@ COPY miktex /home/builder/miktex
 RUN    sudo chown builder:abuild -R /home/builder/miktex \
     && cd /home/builder/miktex \
     && abuild-keygen -a -i -n \
-    && abuild -r
+    && abuild -r \
+    && tree /home/builder/packages/ 
 
 FROM alpine:latest
 
